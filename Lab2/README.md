@@ -9,3 +9,5 @@ Assignment is worth 20 points, due January 9th.
  * Varied uses of tables
  * Images within tables
  * Site-wide navigation
+
+ Images were sourced from Google, but are protected under Copyright law. They are used in this project under fair use as demonstrative works for educational purposes.
