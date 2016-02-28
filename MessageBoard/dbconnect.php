@@ -15,16 +15,3 @@
     if (!mysql_select_db($db_schema, $mysql)) {
         die("Unable to find the database '" . $db_schema . "'");
     }
-
-    // Hacky and shallow way to remove slashes from array values
-    function removeMagicQuotes(&$array) {
-        foreach ($array as $key => $value) {
-            $array[$key] = stripslashes($value);
-        }
-    }
-
-    // Remove slashes from _GET and _POST if magic quotes are enabled
-    if (get_magic_quotes_gpc()) {
-        removeMagicQuotes($_POST);
-        removeMagicQuotes($_GET);
-    }
