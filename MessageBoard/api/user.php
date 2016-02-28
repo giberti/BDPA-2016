@@ -1,6 +1,6 @@
 <?php
 
-include (__DIR__ . '../dbconnect.php');
+include (__DIR__ . '/../dbconnect.php');
 
 // Get our data from the request
 $method = $_POST['method'];
