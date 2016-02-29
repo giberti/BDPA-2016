@@ -1,6 +1,6 @@
 <?php
 
-    include 'phpmodernize.php';
+    require __DIR__ . '/phpmodernize.php';
 
-    include 'dbconnect.php';
-    include 'session.php';
+    require __DIR__ . '/session.php';
+    require __DIR__ . '/dbconnect.php';

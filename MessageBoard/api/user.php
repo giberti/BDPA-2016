@@ -1,9 +1,9 @@
 <?php
 
-include (__DIR__ . '/../dbconnect.php');
+require __DIR__ . '/../setup.php';
 
 // Get our data from the request
-$method = $_POST['method'];
+$method   = $_POST['method'];
 $password = $_POST['password'];
 $username = ctype_alnum($_POST['username']);
 
@@ -33,6 +33,9 @@ switch ($method) {
         break;
 
     case 'login': // logs in the user if it's valid
+
+        // Rotate the session
+        session_regenerate_id(true);
 
         $userId = checkLogin($username, $password);
         if ($userId) {
