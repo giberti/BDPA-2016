@@ -3,8 +3,8 @@
 require __DIR__ . '/../setup.php';
 
 // Get our data from the request
-$method   = $_POST['method'];
-$password = $_POST['password'];
+$method   = isset($_POST['method']) ? $_POST['method'] : null;
+$password = isset($_POST['password']) ? $_POST['password'] : null;
 $username = ctype_alnum($_POST['username']);
 
 // An associative array to hold information the frontend might need

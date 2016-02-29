@@ -1,22 +1,39 @@
 <?php
 
-
-// Hacky and shallow way to remove slashes from array values
-function removeMagicQuotes(&$array) {
-    foreach ($array as $key => $value) {
-        $array[$key] = stripslashes($value);
-    }
-}
+// Turn off all the unnecessary server output that will break ajax responses
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE);
 
 // Remove slashes from _GET and _POST if magic quotes are enabled
 if (get_magic_quotes_gpc()) {
+
+    /**
+     * Strips slashes that *might* have been added by the server so we can properly escape input data
+     *
+     * @param $array
+     */
+    function removeMagicQuotes(&$array) {
+        foreach ($array as $key => $value) {
+            $array[$key] = stripslashes($value);
+        }
+    }
+
+    // Pass the GET/POST for cleansing
     removeMagicQuotes($_POST);
     removeMagicQuotes($_GET);
 }
 
+// http_response_code() isn't implemented until PHP 5.4
 if (!function_exists('http_response_code')) {
 
     $current_http_response_code_value = 200; // default is 'OK'
+    /**
+     * Get current (or send provided) HTTP response code
+     *
+     * @param null $code
+     *
+     * @return int|null
+     * @throws Exception Invalid codes will raise exceptions which should force Apache to raise a 500
+     */
     function http_response_code($code = null) {
 
         global $current_http_response_code_value;
@@ -24,6 +41,7 @@ if (!function_exists('http_response_code')) {
             return $current_http_response_code_value;
         }
 
+        // Short list of common HTTP response codes
         switch ($code) {
             case 100: $message = 'Continue'; break;
 
