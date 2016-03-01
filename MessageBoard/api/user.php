@@ -15,10 +15,10 @@ switch ($method) {
     case 'addUser': // registers the provided username
 
         if (addUser($username, $password)) {
-            // Send a created code
+            // Send a 201 (created) to indicate the creation was successful
             http_response_code(201);
         } else {
-            // send a conflict code
+            // send a 409 (conflict) to indicate there was a problem (usually a race condition on the username)
             http_response_code(409);
         }
         break;
@@ -26,23 +26,27 @@ switch ($method) {
     case 'isAvailable': // checks to see if the username is available
 
         if (isAvailable($username)) {
+            // send a 200 (ok) to indicate it's available
             http_response_code(200);
         } else {
-            http_response_code(404);
+            // send a 409 (conflict) to indicate it's already in use
+            http_response_code(409);
         }
         break;
 
-    case 'login': // logs in the user if it's valid
+    case 'login': // log the user in if it's valid
 
         // Rotate the session
         session_regenerate_id(true);
 
         $userId = checkLogin($username, $password);
         if ($userId) {
+            // send a 200 (ok) to indicate that the user is logged in
             http_response_code(200);
             $_SESSION['Username'] = $username;
             $_SESSION['UserID'] = $userId;
         } else {
+            // send a 401 (unauthorized) to indicate the login failed
             http_response_code(401);
             $_SESSION['Username'] = null;
             $_SESSION['UserID'] = null;
@@ -50,7 +54,7 @@ switch ($method) {
         break;
 
     default:
-        // Send a bad-request status
+        // Send a 400 (bad request) for unknown method
         http_response_code(400);
 }
 
