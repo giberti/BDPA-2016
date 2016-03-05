@@ -65,6 +65,21 @@ switch ($method) {
         }
         break;
 
+    case 'logout': // clear the session
+
+        // unset values
+        unset($_SESSION['Username']);
+        unset($_SESSION['Password']);
+
+        // destroy the session
+        session_destroy();
+        session_regenerate_id(true);
+
+        // send a 200 (ok) to let client know this was successful
+        http_response_code(200);
+        $responseData['message'] = 'ok';
+        break;
+
     default:
         // Send a 400 (bad request) for unknown method
         http_response_code(400);
