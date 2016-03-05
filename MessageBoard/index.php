@@ -15,6 +15,8 @@
         <title>Message Board</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <style>
             .author { font-weight: bold; }
             .timestamp { color: #999999; font-size: 9pt }
@@ -36,15 +38,15 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                    <!-- authenticated user -->
                     <?php if ($loggedIn) { ?>
+                    <!-- authenticated user -->
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="logout-button">Logout</a></li>
                     </ul>
                     <?php } ?>
 
-                    <!-- unauthenticated user -->
                     <?php if (!$loggedIn) { ?>
+                    <!-- unauthenticated user -->
                     <form class="navbar-form navbar-right" onSubmit="return false;">
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -103,8 +105,6 @@
         }
         ?>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
         <script>
 
 
